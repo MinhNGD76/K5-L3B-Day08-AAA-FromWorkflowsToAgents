@@ -2,9 +2,9 @@
 
 ## Thông tin nhóm
 
-- Tên nhóm:
-- Lớp: L3A
-- Repo nhóm: `K5-L3A-DAY08-TenNhom-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
+- Tên nhóm: AAA
+- Lớp: L3B
+- Repo nhóm: `K5-L3B-DAY08-AAA-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
 - URL repo, nhánh nộp, commit chốt:
 
 ## Thành viên
