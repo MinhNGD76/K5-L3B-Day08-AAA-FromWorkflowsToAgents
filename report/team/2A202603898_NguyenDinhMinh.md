@@ -17,7 +17,7 @@ Shape A `workflow` và tích hợp.
 
 ## 3. Đóng góp cụ thể
 
-Commit chính (hash): chưa commit tại thời điểm viết. Sẽ bổ sung hash sau khi commit trên branch `minh`.
+Commit chính: `b852fc8` (workflow và `test_workflow_extra.py`); `cdc5e93` và `5b2acaa` (merge nhánh của Khánh và Trình vào `minh`).
 
 Quyết định kỹ thuật:
 
@@ -44,15 +44,15 @@ Chạy trong `src/` trên branch `minh`:
 - `python -m pytest -q tests/test_workflow_extra.py`: 3 passed.
 - Toàn bộ ma trận student: 124 failed, 124 passed. Phần fail là 62 test của `single` và 62 test của `orchestrator`, vì hai shape này chưa được ghép vào.
 
-Chưa có: `reports/crash.json`, `reports/benchmark.json`, run id. Lưu ý `lab8.crash_test` hiện chạy cố định shape swarm (`crash_test.py:124`), nên kết quả `20/20` của lệnh đó không chứng minh workflow an toàn khi crash. Với workflow, bằng chứng crash hiện là test T12 trong ma trận student.
+Sau khi ghép ba shape, chạy lại trên `minh`: `pytest -q` 75 passed; ma trận student 248 passed; benchmark 4 shape × 14 claim × 5 seed và `crash_test` `20/20` do công cụ sinh ra (`src/reports/benchmark.json`, `crash.json`); ablation `src/reports/ablation_r1.json`. Số benchmark khớp với file Trình đã nộp. Run id dẫn chứng: `R-workflow-C-001-s11`. Lưu ý `lab8.crash_test` hiện chạy cố định shape swarm (`crash_test.py:124`), nên kết quả `20/20` của lệnh đó không chứng minh workflow an toàn khi crash. Với workflow, bằng chứng crash hiện là test T12 trong ma trận student.
 
 ## 5. Công cụ AI đã dùng
 
-- Claude Code: đọc repo để lên kế hoạch phân công, viết nháp `workflow.py` và `test_workflow_extra.py`, soạn nội dung báo cáo này.
+- Claude Code: đọc repo để lên kế hoạch phân công, viết nháp `workflow.py` và `test_workflow_extra.py`, review và ghép nhánh, chạy benchmark/crash, soạn nháp báo cáo nhóm, research card và báo cáo này.
 - Tự kiểm tra: chạy lại smoke, cổng host, 62 test student của workflow và 3 test bổ sung ở trên, đọc kết quả thật thay vì tin vào mô tả của công cụ. Đã xác nhận `compute_compensation` chỉ dùng policy `is_current` và `effective_date <= as_of`.
 
 ## 6. Tự đánh giá
 
 - Làm được: shape workflow đầy đủ, qua 62/62 test student và cổng host vẫn xanh.
-- Còn thiếu: commit, ghép với shape của Người 2 và Người 3, chạy benchmark và `check_submission`, báo cáo nhóm. Các phần này phụ thuộc vào việc hai bạn còn lại hoàn thành shape.
+- Còn thiếu: hidden grade (giảng viên chạy), việc đọc bản gốc paper R1 để điền CLAIM/BOUNDARY và URL trong research card, và các thành viên tự nộp link LMS.
 - Giới hạn: kết luận hiện chỉ dựa trên MockLLM và bộ claim public; chưa có số hidden.

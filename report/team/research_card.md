@@ -17,21 +17,20 @@ Phần này nối tiếp phần mini research ở buổi lý thuyết (slide 62�
 
 | Field | Hướng dẫn | Nhóm điền |
 | --- | --- | --- |
-| CÂU | R1 / R2 / R3 / R4 | |
-| SOURCE | Paper/blog, năm, URL, loại bằng chứng (benchmark, production report, blog kinh nghiệm) | |
-| CLAIM | Một kết luận gốc của nguồn. Không viết rộng hơn phạm vi paper | |
-| BOUNDARY | Model / dataset / setup giới hạn kết luận đó | |
-| HYPOTHESIS | Nếu đổi shape A→B (hoặc bật/tắt một thành phần), metric X sẽ đổi theo hướng nào, khoảng bao nhiêu | |
-| METHOD | Biến giữ cố định: model, tools, seed, corpus, giá, evaluator. Biến duy nhất được thay đổi: … | |
-| FAILURE / METRIC | Một lỗi dự kiến và cách đo nó: pass rate, pass^5, variance, cost/success, leak, bypass | |
+| CÂU | R1 / R2 / R3 / R4 | R1 |
+| SOURCE | Paper/blog, năm, URL, loại bằng chứng (benchmark, production report, blog kinh nghiệm) | Google Research, 2026, *Towards a Science of Scaling Agent Systems* (nguồn theo danh sách R1 của lab; URL do nhóm bổ sung, chưa kiểm tra bản gốc). Loại bằng chứng: benchmark |
+| CLAIM | Một kết luận gốc của nguồn. Không viết rộng hơn phạm vi paper | Chưa đọc bản gốc nên nhóm chưa trích kết luận của paper; không điền để tránh viết rộng hơn phạm vi nguồn. |
+| BOUNDARY | Model / dataset / setup giới hạn kết luận đó | Chưa xác định vì chưa đọc paper. Giới hạn phía lab: MockLLM, 14 claim public, 5 seed cố định. |
+| HYPOTHESIS | Nếu đổi shape A→B (hoặc bật/tắt một thành phần), metric X sẽ đổi theo hướng nào, khoảng bao nhiêu | Task claims chủ yếu tuần tự (đọc đơn → tính quote → ghi), nên thêm investigator (workflow → orchestrator) không tăng pass rate (giữ 1.000) và tăng cost/success, ước tính gần gấp đôi vì thêm các lần gọi tool đọc. |
+| METHOD | Biến giữ cố định: model, tools, seed, corpus, giá, evaluator. Biến duy nhất được thay đổi: … | Giữ cố định: MockLLM, tool đọc, seed 11,22,33,44,55, 14 claim public, bảng giá, evaluator. Biến duy nhất thay đổi: shape workflow so với orchestrator (thêm tầng handoff và investigator). |
+| FAILURE / METRIC | Một lỗi dự kiến và cách đo nó: pass rate, pass^5, variance, cost/success, leak, bypass | Orchestrator làm lộ field qua handoff hoặc trace: đo `secret_leak_count`, `approval_bypass_count`; so pass rate, pass^5, variance, cost/success. |
 
 ## Kết quả ablation
 
-- Lệnh đã chạy (copy nguyên văn):
-- Run id / file report:
-- Kết quả so với hypothesis (đúng / sai / không kết luận được), kèm số liệu:
+- Lệnh đã chạy (copy nguyên văn): `python -m lab8.benchmark --shapes workflow,orchestrator --cases data/public_claims.jsonl --seeds 11,22,33,44,55 --out reports/ablation_r1.json` (chạy trong `src/`)
+- Run id / file report: `src/reports/ablation_r1.json` (và `src/reports/benchmark.json`, cùng số liệu)
+- Kết quả so với hypothesis (đúng / sai / không kết luận được), kèm số liệu: **đúng một phần**. Pass rate và pass^5 cùng 1.000, variance 0 ở cả hai shape (không đổi). Cost/success workflow 27.86 so với orchestrator 55.71 VND mô phỏng, tức khoảng gấp đôi. Chưa kiểm số cost này theo từng tool vì chỉ đọc tổng trong report. Chưa chạy hidden nên không kết luận cho bộ hidden.
 - Giới hạn: MockLLM không phải model sản xuất, latency là `unavailable`.
 
-**BLOCKER:** Chưa chạy ablation giữ cố định model, tools, seed, corpus, giá và evaluator rồi chỉ thay một biến. Vì vậy các trường nghiên cứu và kết quả ở trên được giữ trống; không có source, hypothesis, run id hay kết quả ablation để báo cáo.
 
 Muốn đi xa hơn một ablation để lấy điểm cộng thì xem [docs/bonus_topics.md](../../docs/bonus_topics.md).
