@@ -6,7 +6,7 @@ Tối đa 5 trang ngoài phụ lục. Số liệu lấy từ file trong `src/rep
 
 - Tên nhóm: AAA (lớp L3B)
 - Thành viên: xem `TEAM.md`
-- Commit chốt (trùng `report/team/decision_adr.md`): 5866b21
+- Commit chốt: 430d230
 
 ## 2. Mục tiêu và cách tiếp cận
 

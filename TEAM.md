@@ -7,7 +7,7 @@
 - Repo nhóm: `K5-L3B-DAY08-AAA-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
 - URL repo: https://github.com/MinhNGD76/K5-L3B-Day08-AAA-FromWorkflowsToAgents
 - Nhánh nộp: `main`
-- Commit chốt: (điền hash sau khi commit cuối, trùng `report/team/decision_adr.md`)
+- Commit chốt: 430d230
 
 ## Thành viên
 
