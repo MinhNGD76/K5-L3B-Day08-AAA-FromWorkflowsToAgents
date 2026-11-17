@@ -49,14 +49,16 @@ Các lệnh được chạy trong `src/`, bằng Python của môi trường `.v
 ```powershell
 python -m pytest -q -m student -o addopts= tests/test_public_matrix.py -k "single and not workflow and not orchestrator and not swarm"
 python -m pytest -q
+python -m pytest -q -m student -o addopts=
 python -m lab8.crash_test --count 20 --out reports/crash.json
 ```
 
 | Kiểm tra | Kết quả đã ghi nhận |
 | --- | --- |
 | Public matrix dành riêng Single | 62 passed, 186 deselected |
-| Test mặc định, gồm test mới | 60 passed, 248 deselected |
-| Crash suite chính thức | crash_safety 20/20 |
+| Test mặc định sau tích hợp cả ba thành viên | 75 passed, 248 deselected |
+| Crash suite chính thức, chạy lại sau tích hợp | crash_safety 20/20 |
+| Toàn bộ public student matrix sau tích hợp | 248 passed, 75 deselected |
 
 File bằng chứng: `src/reports/crash.json`. Tài liệu kỹ thuật: `report/team/member2_handoff.md`. Crash suite chính thức kiểm host và swarm tham chiếu; bằng chứng crash/resume riêng Single nằm trong test mới và public T12. Các kết quả này phản ánh lần kiểm chứng tại thời điểm triển khai, cần chạy lại nếu code tích hợp thay đổi.
 
@@ -75,7 +77,17 @@ Phần Single đã được triển khai, có commit kỹ thuật và test bổ 
 ### Giới hạn và công việc còn lại
 
 - Chưa kiểm chứng hidden pass rate; không khẳng định đạt ngưỡng hidden 75%.
-- Chưa có benchmark so sánh bốn shape hoặc kết quả ablation thuộc phần việc nhóm.
-- Khi review, Orchestrator còn stub `not_implemented`; chưa thể xác nhận handoff, quyền investigator và trace. Cần review lại sau khi thành viên 3 hoàn thiện.
-- Cần đưa đóng góp vào TEAM.md, tích hợp code chung và chạy lại kiểm tra trước khi nộp.
+- Benchmark bốn shape đã có: Single đạt pass_rate=1.0, pass^5=1.0, cost/success mô phỏng khoảng 28.563 VND trên 70 trial public. Đây là kết quả trong reports/benchmark.json do thành viên 3 cung cấp, không phải benchmark do thành viên 2 chạy. Đã phụ trách ablation thay riêng ticket và hoàn thiện research card với Codex hỗ trợ.
+- Đã review lại Orchestrator sau tích hợp: make_handoff chỉ cấp tool đọc và facts rỗng; runtime chặn write tool; trace không sao chép parent context; quote đầy đủ và crash_at được chuyển cho host; mọi nhánh kết thúc qua finish. Không phát hiện lỗi cần sửa trong phạm vi review.
+- Đã điền thông tin và dòng đóng góp vào TEAM.md; code ba thành viên đã tích hợp. Kết quả kiểm tra cập nhật ghi trong mục 4.
 - Thành viên cần tự đọc, chạy lại, giải thích code và bổ sung nhận xét cá nhân về phần đã hiểu, khó khăn và bài học thực tế. Báo cáo này chưa thay cho tự đánh giá chủ quan của thành viên.
+
+### Kiểm tra hồ sơ sau tích hợp
+
+Đã chạy thí nghiệm ticket ablation (R2/MAST), ghi trong group_report.md. Research card của nhóm dùng R1 (workflow so với orchestrator). Kết quả kiểm tra hồ sơ cập nhật được ghi sau khi chạy lại.
+
+### Đóng góp nghiên cứu bổ sung
+
+Phụ trách thiết kế và thực hiện ablation với sự hỗ trợ của Codex: giữ nguyên Single, MockLLM, world, seed, tools, giá và evaluator; thay duy nhất nội dung ticket trong bản sao dữ liệu ở bộ nhớ. Script tái lập: src/scripts/member2_ticket_ablation.py; report do script sinh: src/reports/member2_ticket_ablation.json. Baseline và treatment đều pass 70/70, pass^5=1.0 và cost/success=28.562857 VND mô phỏng; 70 cặp không khác trên các chỉ số so sánh. Kết quả cho thấy Single hiện tại không phụ thuộc nội dung ticket trong bộ public, không chứng minh an toàn của model thật hoặc hidden pass rate.
+
+Kết quả kiểm tra hồ sơ sau bổ sung nghiên cứu: `python -m lab8.check_submission` trả 0 FAIL, 1 WARN (working tree còn thay đổi chưa commit, gồm cả thay đổi cá nhân có sẵn). Không đồng nghĩa hidden đã pass.

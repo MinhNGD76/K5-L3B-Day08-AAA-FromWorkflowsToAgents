@@ -27,4 +27,4 @@ Workflow trace ghi claim id/cờ có order, order view allowlist, quote và quy�
 
 ## Giới hạn
 
-MockLLM không phải model sản xuất; số liệu chỉ phản ánh 14 claim public và năm seed cố định. Latency là `unavailable`. Hidden grader và ablation chưa chạy, nên ADR không suy rộng sang hidden pass rate hay hệ thống sản xuất. `src/reports/benchmark.json` và `src/reports/crash.json` do lệnh của lab sinh ra, không sửa tay.
+MockLLM không phải model sản xuất; số liệu chỉ phản ánh 14 claim public và năm seed cố định. Latency là `unavailable`. Hidden grader chưa chạy; ticket ablation của Single đã chạy (xem group_report.md), nên ADR không suy rộng sang hidden pass rate hay hệ thống sản xuất. `src/reports/benchmark.json` và `src/reports/crash.json` do lệnh của lab sinh ra, không sửa tay.
