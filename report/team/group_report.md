@@ -55,3 +55,10 @@ Single sử dụng run_react với tối đa 8 lượt, worker=True, mỗi lư�
 Trace gồm sự kiện react, quote và decision; không ghi ticket hay parent context. Sáu trường hợp test riêng kiểm ba cửa sổ crash, retry, cấu hình vòng đọc/đếm model call, xử lý step_cap và trace của unknown claim. Public matrix Single ban đầu đạt 62/62; test mặc định sau tích hợp đạt 75 passed. Crash suite chính thức đạt 20/20 (host và swarm); crash riêng Single được kiểm chứng bằng test riêng và public T12.
 
 Thành viên 2 đã review Orchestrator: handoff qua allowlist, investigator chỉ đọc, trace tóm tắt dữ liệu an toàn, full quote và crash_at chuyển đến host. Benchmark do thành viên 3 cung cấp cho Single có 70 trial, pass rate và pass^5 bằng 1.0, cost/success mô phỏng 28.563 VND. Chưa suy rộng kết quả public thành hidden hoặc hiệu năng LLM thật.
+
+### Ablation của thành viên 2
+
+
+- Kết quả thực chạy: baseline 70/70 và treatment 70/70 trial pass; cả hai pass rate=1.0, pass^5=1.0, seed variance=0, cost/success=28.562857142857144 VND mô phỏng. Không có sai khác ở 70 cặp trial trên các field so sánh. Hypothesis phù hợp dữ liệu trong phạm vi bộ public này.
+
+Chỉ thay ticket, giữ nguyên điều kiện còn lại; nguồn MAST và phương pháp chi tiết tại research_card.md. Thực hiện bởi Ngô Duy Khánh với Codex hỗ trợ. Script và JSON report được lưu để tái lập; không sửa dữ liệu gốc.

@@ -17,21 +17,19 @@ Phần này nối tiếp phần mini research ở buổi lý thuyết (slide 62�
 
 | Field | Hướng dẫn | Nhóm điền |
 | --- | --- | --- |
-| CÂU | R1 / R2 / R3 / R4 | |
-| SOURCE | Paper/blog, năm, URL, loại bằng chứng (benchmark, production report, blog kinh nghiệm) | |
-| CLAIM | Một kết luận gốc của nguồn. Không viết rộng hơn phạm vi paper | |
-| BOUNDARY | Model / dataset / setup giới hạn kết luận đó | |
-| HYPOTHESIS | Nếu đổi shape A→B (hoặc bật/tắt một thành phần), metric X sẽ đổi theo hướng nào, khoảng bao nhiêu | |
-| METHOD | Biến giữ cố định: model, tools, seed, corpus, giá, evaluator. Biến duy nhất được thay đổi: … | |
-| FAILURE / METRIC | Một lỗi dự kiến và cách đo nó: pass rate, pass^5, variance, cost/success, leak, bypass | |
+| CÂU | R1 / R2 / R3 / R4 | R2 — Failure taxonomy; mở rộng câu hỏi sang lỗi kiểm chứng dữ kiện trong Single. |
+| SOURCE | Paper/blog, năm, URL, loại bằng chứng (benchmark, production report, blog kinh nghiệm) | Cemri et al., Why Do Multi-Agent LLM Systems Fail?, 2025, https://arxiv.org/abs/2503.13657 ; nghiên cứu thực nghiệm/taxonomy MAST. |
+| CLAIM | Một kết luận gốc của nguồn. Không viết rộng hơn phạm vi paper | MAST phân loại lỗi thành ba nhóm: specification/system design, inter-agent misalignment, task verification/termination. Đây là phân loại từ nguồn, không phải kết quả thí nghiệm của nhóm. |
+| BOUNDARY | Model / dataset / setup giới hạn kết luận đó | Nguồn nghiên cứu multi-agent; ablation của nhóm chỉ khảo sát Single với MockLLM và 14 claim giả. Liên hệ với lỗi kiểm chứng là cách vận dụng của nhóm, không phải kết luận paper về LogiX-VN. |
+| HYPOTHESIS | Nếu đổi shape A→B (hoặc bật/tắt một thành phần), metric X sẽ đổi theo hướng nào, khoảng bao nhiêu | Thay ticket bằng yêu cầu sai (99 ngày trễ, đòi 999999999 VND, ignore policy) sẽ làm pass rate Single thay đổi 0 điểm phần trăm, cost/success thay đổi 0 VND, vì code chỉ tin order và không dùng ticket trong model prompt. |
+| METHOD | Biến giữ cố định: model, tools, seed, corpus, giá, evaluator. Biến duy nhất được thay đổi: … | Giữ nguyên Single, MockLLM, tools, world/order/policy, evaluator, pricing, 14 claim và seed 11/22/33/44/55; SQLite mới mỗi trial. Chỉ thay trường ticket trong bản sao claims ở bộ nhớ. 70 baseline + 70 treatment. Không sửa data/config/thước đo. |
+| FAILURE / METRIC | Một lỗi dự kiến và cách đo nó: pass rate, pass^5, variance, cost/success, leak, bypass | Lỗi dự kiến nếu ranh giới hỏng: tin ticket và hoàn sai. Đo pass rate, pass^5, cost/success và sai khác ghép cặp ở status/passed/reason/cost/model_calls/tool_calls/steps. trial_pass cũng kiểm trace và ledger theo expected. |
 
 ## Kết quả ablation
 
-- Lệnh đã chạy (copy nguyên văn):
-- Run id / file report:
-- Kết quả so với hypothesis (đúng / sai / không kết luận được), kèm số liệu:
-- Giới hạn: MockLLM không phải model sản xuất, latency là `unavailable`.
+- Người phụ trách: Ngô Duy Khánh (thành viên 2), có Codex hỗ trợ triển khai và thực thi.
+- Lệnh chạy trong src (PowerShell): `$env:PYTHONPATH='.'; ../.venv/Scripts/python.exe scripts/member2_ticket_ablation.py`
+- File report: `src/reports/member2_ticket_ablation.json`; mỗi trial có run_id trong baseline/trials và treatment/trials. Run id định danh theo shape/claim/seed có thể trùng giữa hai nhánh, vì vậy cần đọc cùng nhãn baseline/treatment.
+- Giới hạn: MockLLM không phải model sản xuất, latency là unavailable. Không đổi topology; thí nghiệm chỉ đo độ bất biến trước ticket trong Single. Ticket không được đưa vào prompt nên kết quả không chứng minh chống prompt injection của LLM thật.
 
-**BLOCKER:** Chưa chạy ablation giữ cố định model, tools, seed, corpus, giá và evaluator rồi chỉ thay một biến. Vì vậy các trường nghiên cứu và kết quả ở trên được giữ trống; không có source, hypothesis, run id hay kết quả ablation để báo cáo.
-
-Muốn đi xa hơn một ablation để lấy điểm cộng thì xem [docs/bonus_topics.md](../../docs/bonus_topics.md).
+- Kết quả thực chạy: baseline 70/70 và treatment 70/70 trial pass; cả hai pass rate=1.0, pass^5=1.0, seed variance=0, cost/success=28.562857142857144 VND mô phỏng. Không có sai khác ở 70 cặp trial trên các field so sánh. Hypothesis phù hợp dữ liệu trong phạm vi bộ public này.

@@ -77,11 +77,17 @@ Phần Single đã được triển khai, có commit kỹ thuật và test bổ 
 ### Giới hạn và công việc còn lại
 
 - Chưa kiểm chứng hidden pass rate; không khẳng định đạt ngưỡng hidden 75%.
-- Benchmark bốn shape đã có: Single đạt pass_rate=1.0, pass^5=1.0, cost/success mô phỏng khoảng 28.563 VND trên 70 trial public. Đây là kết quả trong reports/benchmark.json do thành viên 3 cung cấp, không phải benchmark do thành viên 2 chạy. Research card và ablation vẫn cần nhóm hoàn thiện.
+- Benchmark bốn shape đã có: Single đạt pass_rate=1.0, pass^5=1.0, cost/success mô phỏng khoảng 28.563 VND trên 70 trial public. Đây là kết quả trong reports/benchmark.json do thành viên 3 cung cấp, không phải benchmark do thành viên 2 chạy. Đã phụ trách ablation thay riêng ticket và hoàn thiện research card với Codex hỗ trợ.
 - Đã review lại Orchestrator sau tích hợp: make_handoff chỉ cấp tool đọc và facts rỗng; runtime chặn write tool; trace không sao chép parent context; quote đầy đủ và crash_at được chuyển cho host; mọi nhánh kết thúc qua finish. Không phát hiện lỗi cần sửa trong phạm vi review.
 - Đã điền thông tin và dòng đóng góp vào TEAM.md; code ba thành viên đã tích hợp. Kết quả kiểm tra cập nhật ghi trong mục 4.
 - Thành viên cần tự đọc, chạy lại, giải thích code và bổ sung nhận xét cá nhân về phần đã hiểu, khó khăn và bài học thực tế. Báo cáo này chưa thay cho tự đánh giá chủ quan của thành viên.
 
 ### Kiểm tra hồ sơ sau tích hợp
 
-`lab8.check_submission` xác nhận code ba shape và report benchmark/crash hợp lệ; còn 1 FAIL vì research_card chưa có câu nghiên cứu và ablation. Đây là phần nghiên cứu chung chưa hoàn tất, không được xem các kiểm thử xanh là toàn bộ bài đã sẵn sàng nộp.
+Đã bổ sung research card R2 và thí nghiệm ticket ablation, khắc phục trường nghiên cứu còn trống. Kết quả kiểm tra hồ sơ cập nhật được ghi sau khi chạy lại.
+
+### Đóng góp nghiên cứu bổ sung
+
+Phụ trách thiết kế và thực hiện ablation với sự hỗ trợ của Codex: giữ nguyên Single, MockLLM, world, seed, tools, giá và evaluator; thay duy nhất nội dung ticket trong bản sao dữ liệu ở bộ nhớ. Script tái lập: src/scripts/member2_ticket_ablation.py; report do script sinh: src/reports/member2_ticket_ablation.json. Baseline và treatment đều pass 70/70, pass^5=1.0 và cost/success=28.562857 VND mô phỏng; 70 cặp không khác trên các chỉ số so sánh. Kết quả cho thấy Single hiện tại không phụ thuộc nội dung ticket trong bộ public, không chứng minh an toàn của model thật hoặc hidden pass rate.
+
+Kết quả kiểm tra hồ sơ sau bổ sung nghiên cứu: `python -m lab8.check_submission` trả 0 FAIL, 1 WARN (working tree còn thay đổi chưa commit, gồm cả thay đổi cá nhân có sẵn). Không đồng nghĩa hidden đã pass.

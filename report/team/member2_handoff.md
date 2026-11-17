@@ -34,4 +34,4 @@ Kiến trúc Single giới hạn 8 lượt và tách điều tra đọc khỏi t
 
 Đã có báo cáo `2A202603870_NgoDuyKhanh.md` và đã điền dòng thành viên/đóng góp vào TEAM.md. Công cụ hỗ trợ: Codex để đọc tài liệu, viết code và chạy test; cần tự đọc/giải thích code và thực hiện kiểm chứng trước khi tự đánh giá. Không bịa thông tin cá nhân hay phần tự đánh giá.
 
-Cùng nhóm hoàn thiện research_card theo thí nghiệm thực tế; không điền số ablation chưa chạy. Người dùng tự nộp link LMS.
+Đã hoàn thiện research_card R2 bằng ticket ablation: baseline 70/70, treatment 70/70, 0 khác biệt ở 70 cặp; script và report được lưu. Người dùng tự nộp link LMS.
