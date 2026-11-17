@@ -47,3 +47,11 @@ MockLLM không phải model sản xuất; latency là `unavailable`. Nêu thêm 
 ## 8. Tài liệu tham khảo
 
 ...
+
+## Phần đóng góp của thành viên 2 — Single và durability
+
+Single sử dụng run_react với tối đa 8 lượt, worker=True, mỗi lượt decide được tính vào Budget qua MockLLM. Adapter quyết định hành động đọc theo trạng thái vì MockLLM không có API tool-call có cấu trúc. Order đã kiểm phạm vi principal là nguồn sự thật; ticket không dùng để ghi đè số ngày trễ. Sau vòng đọc, code tính compensation và truyền quote đầy đủ cho host. Host kiểm approval, trần theo đơn và idempotency; crash_at được truyền tiếp và InjectedCrash không bị nuốt.
+
+Trace gồm sự kiện react, quote và decision; không ghi ticket hay parent context. Sáu trường hợp test riêng kiểm ba cửa sổ crash, retry, cấu hình vòng đọc/đếm model call, xử lý step_cap và trace của unknown claim. Public matrix Single ban đầu đạt 62/62; test mặc định sau tích hợp đạt 75 passed. Crash suite chính thức đạt 20/20 (host và swarm); crash riêng Single được kiểm chứng bằng test riêng và public T12.
+
+Thành viên 2 đã review Orchestrator: handoff qua allowlist, investigator chỉ đọc, trace tóm tắt dữ liệu an toàn, full quote và crash_at chuyển đến host. Benchmark do thành viên 3 cung cấp cho Single có 70 trial, pass rate và pass^5 bằng 1.0, cost/success mô phỏng 28.563 VND. Chưa suy rộng kết quả public thành hidden hoặc hiệu năng LLM thật.

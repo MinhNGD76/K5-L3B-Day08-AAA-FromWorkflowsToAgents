@@ -11,7 +11,7 @@ Nguồn sự thật là order đã kiểm phạm vi principal và policy hiện 
 ## Kiểm chứng
 
 - Public matrix riêng Single: 62 passed.
-- Test mặc định, gồm 6 test mới: 60 passed, 248 deselected.
+- Test mặc định sau tích hợp: 75 passed, 248 deselected. Toàn bộ student matrix: 248 passed, 75 deselected. Crash suite chạy lại: 20/20.
 - Test mới: ba cửa sổ crash/resume và retry; giới hạn/cấu hình read-only và đếm model call; hết bước không ghi tiền; unknown claim có trace hợp lệ.
 - Crash suite chính thức được chạy bằng `python -m lab8.crash_test --count 20 --out reports/crash.json`. Suite này kiểm host và swarm; bằng chứng riêng Single nằm ở test mới và public T12.
 
@@ -24,7 +24,7 @@ python -m pytest -q
 
 ## Review Orchestrator
 
-Tại thời điểm review, orchestrator.py còn stub not_implemented. Chưa thể xác nhận handoff, read-only investigator hoặc trace. Khi thành viên 3 hoàn thiện, kiểm make_handoff, allowlist, không truyền parent context, full quote và crash_at.
+Đã review lại code Orchestrator tại commit tích hợp `6d16aa5`: make_handoff dùng facts rỗng và tool đọc; runtime dispatch với worker=True chặn tool ghi; trace ghi handoff đã sanitize và các field tóm tắt, không ghi ticket/parent context. Quote đầy đủ được truyền vào host, crash_at được chuyển tiếp và InjectedCrash không bị nuốt. Các nhánh return sử dụng finish. Không phát hiện lỗi cần sửa qua việc đọc code; kiểm chứng tự động bằng test mặc định và public matrix tích hợp.
 
 ## Nội dung dùng cho báo cáo nhóm
 
@@ -32,6 +32,6 @@ Kiến trúc Single giới hạn 8 lượt và tách điều tra đọc khỏi t
 
 ## Việc cần người dùng điền khi nộp
 
-Copy MSSV_HoTen.md thành tên thật, thêm họ tên/MSSV/email/GitHub. Ghi commit kỹ thuật, các test ở tests/test_single_team.py và vai trò vào TEAM.md. Công cụ hỗ trợ: Codex để đọc tài liệu, viết code và chạy test; cần tự đọc/giải thích code và thực hiện kiểm chứng trước khi tự đánh giá. Không bịa thông tin cá nhân hay phần tự đánh giá.
+Đã có báo cáo `2A202603870_NgoDuyKhanh.md` và đã điền dòng thành viên/đóng góp vào TEAM.md. Công cụ hỗ trợ: Codex để đọc tài liệu, viết code và chạy test; cần tự đọc/giải thích code và thực hiện kiểm chứng trước khi tự đánh giá. Không bịa thông tin cá nhân hay phần tự đánh giá.
 
 Cùng nhóm hoàn thiện research_card theo thí nghiệm thực tế; không điền số ablation chưa chạy. Người dùng tự nộp link LMS.

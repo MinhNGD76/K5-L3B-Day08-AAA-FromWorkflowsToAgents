@@ -12,7 +12,7 @@
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
+|   2 | Ngô Duy Khánh | 2A202603870 | dtonyk231@gmail.com | dkhanhdev | Thành viên 2 — Single + crash safety + review Orchestrator |
 |   3 | Triệu Hải Đăng Trình | 2A202603874 | chưa được cung cấp | DangTrinhdzZ | Thành viên 3 — Orchestrator + benchmark |
 
 Gợi ý chia vai:
@@ -26,7 +26,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| | | | |
+| Ngô Duy Khánh | Single + crash safety + review Orchestrator | `71ae5d1`, `30de945`, `9c705d9` | `src/tests/test_single_team.py` |
 | Triệu Hải Đăng Trình | Orchestrator + benchmark | `75522d2` — triển khai Orchestrator với handoff an toàn | `src/tests/test_orchestrator_team.py` |
 
 ## Cá nhân
