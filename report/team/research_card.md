@@ -32,4 +32,6 @@ Phần này nối tiếp phần mini research ở buổi lý thuyết (slide 62�
 - Kết quả so với hypothesis (đúng / sai / không kết luận được), kèm số liệu:
 - Giới hạn: MockLLM không phải model sản xuất, latency là `unavailable`.
 
+**BLOCKER:** Chưa chạy ablation giữ cố định model, tools, seed, corpus, giá và evaluator rồi chỉ thay một biến. Vì vậy các trường nghiên cứu và kết quả ở trên được giữ trống; không có source, hypothesis, run id hay kết quả ablation để báo cáo.
+
 Muốn đi xa hơn một ablation để lấy điểm cộng thì xem [docs/bonus_topics.md](../../docs/bonus_topics.md).

@@ -13,6 +13,7 @@
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 |        |      |       |        |         |
 |   2 |        |      |       |        |         |
+|   3 | Triệu Hải Đăng Trình | 2A202603874 | chưa được cung cấp | DangTrinhdzZ | Thành viên 3 — Orchestrator + benchmark |
 
 Gợi ý chia vai:
 
@@ -26,6 +27,7 @@ Gợi ý chia vai:
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
 | | | | |
+| Triệu Hải Đăng Trình | Orchestrator + benchmark | `75522d2` — triển khai Orchestrator với handoff an toàn | `src/tests/test_orchestrator_team.py` |
 
 ## Cá nhân
 
